@@ -1,7 +1,7 @@
 #/bin/bash
-apt update >/dev/null
+apt update >/dev/null 2>&1
 apt install -y kubeadm=1.19.4-00 kubectl=1.19.4-00 && \
-	kubeadm config images pull --kubernetes-version 1.19.4 /dev/null 2>&1
+	kubeadm config images pull --kubernetes-version 1.19.4 >/dev/null 2>&1
 echo "=====> Waiting for cluster to start"
 launch.sh 
 echo "=====> Upgrading cluster to 1.19.4 "
