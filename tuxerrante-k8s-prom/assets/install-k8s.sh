@@ -22,6 +22,7 @@ cp /etc/kubernetes/admin.conf $HOME/.kube/config
 chown $(id -u):$(id -g) $HOME/.kube/config
 export KUBECONFIG=/etc/kubernetes/admin.conf
 
+launch.sh 
 kubeadm upgrade apply v1.22.3 --force
 
 echo "=====> Updating worker node "
@@ -40,7 +41,7 @@ apt-get install -y apt-transport-https ca-certificates curl >/dev/null;
 EOF
 chmod +x /root/worker-init.sh
 
-ssh node01 bash <"/root/worker-init.sh" >/dev/null 2>&1 &
+ssh node01 bash <"/root/worker-init.sh" & #>/dev/null 2>&1 &
 
 echo "=====>  CALICO "
 curl -sLO https://docs.projectcalico.org/manifests/calico.yaml
@@ -54,7 +55,7 @@ echo "=====> Installing Prometheus operator 0.52 "
 curl -sLO https://github.com/prometheus-operator/prometheus-operator/archive/refs/tags/v0.52.0.tar.gz
 tar xzvf v0.52.0.tar.gz 
 cd prometheus-operator-0.52.0
-kubectl create -f bundle.yaml
+kubectl create -f bundle.yaml >/dev/null
 
 echo "Enjoy breaking stuff!"
 watch kubectl get pods -A 
