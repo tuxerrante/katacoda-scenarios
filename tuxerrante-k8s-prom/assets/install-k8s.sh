@@ -60,4 +60,5 @@ cd prometheus-operator-0.52.0
 kubectl create -f bundle.yaml >/dev/null
 
 echo "Enjoy breaking stuff!"
+kubectl get nodes -o wide
 watch kubectl get pods -A 
