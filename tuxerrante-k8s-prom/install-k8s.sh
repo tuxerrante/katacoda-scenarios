@@ -5,9 +5,8 @@ curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.
 echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
 echo
 echo "====="
-apt-get update >/dev/null 2>&1
+apt-get update >/dev/null && apt-get install -y --install-recommends kubeadm=1.22.3-00 >/dev/null
 
-apt-get install -y --install-recommends kubeadm=1.22.3-00 >/dev/null ||true
 #apt-cache policy kubeadm |head
 
 kubeadm reset -f >/dev/null 2>&1
