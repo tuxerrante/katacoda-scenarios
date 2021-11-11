@@ -12,14 +12,14 @@
     ],
     "intro": {
       "text": "intro.md",
-      "code": "install-k8s.sh"
+      "code": "assets/install-k8s.sh"
     },
     "finish": {
       "text": "finish.md"
     },
 	"assets": {
 		"client": [
-			{ "file": "*", "target": "/root/" }
+			{ "file": "*", "target": "~/" }
 		]
 	}
   },
