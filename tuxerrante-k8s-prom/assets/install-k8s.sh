@@ -33,10 +33,10 @@ export CONTROLPLANE_IP=$(hostname -I |cut -f1 -d" ")
 
 echo
 cat <<EOF >/root/worker-init.sh
-apt-get install -y apt-transport-https ca-certificates curl >/dev/null;
-	apt-get update --allow-unauthenticated >/dev/null; 
+	apt-get install -y apt-transport-https ca-certificates curl >/dev/null;
 	curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg; 
 	echo 'deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main' | sudo tee /etc/apt/sources.list.d/kubernetes.list ; 
+	apt-get update --allow-unauthenticated >/dev/null; 
 	apt-get install -y kubelet=1.22.3-00 kubeadm=1.22.3-00; 
 	kubeadm join --token ${TOKEN} ${CONTROLPLANE_IP}:6443 --discovery-token-ca-cert-hash sha256:${TOKEN_HASH}
 EOF
