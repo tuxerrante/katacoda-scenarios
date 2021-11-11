@@ -6,8 +6,7 @@ echo
 echo "====="
 apt-get update >/dev/null 2>&1
 apt-cache policy kubeadm |head
-apt install -y kubeadm=1.22.3-00
-echo
+apt-get install -y --install-recommends kubeadm=1.22.3-00 >/dev/null 
 kubeadm reset -f >/dev/null
 rm -rf /etc/kubernetes/*
 echo
