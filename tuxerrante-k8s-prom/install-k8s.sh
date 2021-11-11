@@ -42,4 +42,5 @@ curl -sLO https://github.com/prometheus-operator/prometheus-operator/archive/ref
 tar xzvf v0.52.0.tar.gz 
 cd prometheus-operator-0.52.0
 kubectl create -f bundle.yaml
-echo "Enjoy breaking stuff!!\n"
+echo "Enjoy breaking stuff!"
+watch kubectl get pods -A 
