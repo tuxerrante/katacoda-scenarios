@@ -5,9 +5,8 @@ echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https:/
 echo
 echo "====="
 apt-get update >/dev/null 2>&1
-apt-cache policy kubeadm |head
-apt-get install -y --install-recommends kubeadm=1.22.3-00 >/dev/null 
-kubeadm reset -f >/dev/null
+apt-get install -y --install-recommends kubeadm=1.22.3-00 >/dev/null 2>&1 #apt-cache policy kubeadm |head
+kubeadm reset -f >/dev/null 2>&1
 rm -rf /etc/kubernetes/*
 echo
 echo "====="
