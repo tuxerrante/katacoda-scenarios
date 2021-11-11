@@ -1,5 +1,4 @@
 #/bin/bash
-kubeadm reset -f >/dev/null
 echo
 curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
 echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
@@ -7,7 +6,10 @@ echo
 echo "====="
 apt-get update >/dev/null 2>&1
 apt-cache policy kubeadm |head
+apt install -y kubeadm=1.22.3-00
 echo
+kubeadm reset -f >/dev/null
+rm -rf /etc/kubernetes/*
 echo
 echo "====="
 rm -rf /etc/kubernetes/manifests/* /var/lib/etcd/*
