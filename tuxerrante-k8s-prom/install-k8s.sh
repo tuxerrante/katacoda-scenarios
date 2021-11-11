@@ -8,4 +8,5 @@ ssh node01 'apt update; apt install -y kubelet=1.19.3-00 && kubeadm upgrade node
 # kubectl -n kube-system get cm kubeadm-config -oyaml
 apt install -y kubelet=1.19.4-00 kubectl=1.19.4-00 > /dev/null
 kubeadm upgrade apply v1.20.12 --force
-./launch.sh 
+launch.sh 
+./install-prom.sh
