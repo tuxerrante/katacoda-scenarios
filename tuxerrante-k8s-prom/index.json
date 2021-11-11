@@ -12,7 +12,7 @@
     ],
     "intro": {
       "text": "intro.md",
-      "code": "install-k8s.sh && install-prom.sh"
+      "code": "install-k8s.sh; install-prom.sh"
     },
     "finish": {
       "text": "finish.md"
