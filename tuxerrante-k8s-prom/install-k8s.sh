@@ -17,6 +17,7 @@ mkdir -p $HOME/.kube
 cp /etc/kubernetes/admin.conf $HOME/.kube/config
 chown $(id -u):$(id -g) $HOME/.kube/config
 export KUBECONFIG=/etc/kubernetes/admin.conf
+kubeadm upgrade apply v1.22.3 --force
 echo "=====> Updating worker node "
 export TOKEN=$(kubeadm token list -o=jsonpath="{.token}")
 export TOKEN_HASH=$(openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | openssl dgst -sha256 -hex | sed 's/^.* //')
@@ -31,7 +32,7 @@ apt-get install -y apt-transport-https ca-certificates curl >/dev/null;
 	kubeadm join --token ${TOKEN} ${CONTROLPLANE_IP}:6443 --discovery-token-ca-cert-hash sha256:${TOKEN_HASH}
 EOF
 chmod +x worker-init.sh
-ssh node01 bash -c "nohup worker-init.sh >/dev/null 2>&1 &"
+ssh node01 bash </root/worker-init.sh >/dev/null 2>&1 &
 curl -sLO https://docs.projectcalico.org/manifests/calico.yaml
 kubectl apply -f calico.yaml  >/dev/null
 echo "=====> Waiting for cluster to start "
