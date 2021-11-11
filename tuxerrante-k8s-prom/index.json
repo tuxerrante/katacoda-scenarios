@@ -18,7 +18,7 @@
     },
 	"assets": {
 		"client": [
-			{ "file": "*", "target": "~/" }
+			{ "file": "install-k8s.sh", "target": "~/" }
 		]
 	}
   },

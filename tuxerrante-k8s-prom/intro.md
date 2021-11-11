@@ -1,7 +1,7 @@
 # K8S playground
 
 Environment:  
-- K8S 1.22 through kubeadm with two nodes.
+- K8S 1.22 with two nodes.
 - [Prometheus Operator](https://github.com/prometheus-operator/prometheus-operator/archive/refs/tags/v0.52.0.tar.gz)
 - Calico CNI
 
