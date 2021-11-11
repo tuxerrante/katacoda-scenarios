@@ -1,7 +1,7 @@
 #/bin/bash
 
 apt update
-apt upgrade -y docker-ce*
+apt install -y docker-ce*
 
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 sudo install minikube-linux-amd64 /usr/local/bin/minikube
