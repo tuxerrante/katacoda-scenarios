@@ -19,7 +19,7 @@
     },
 	"assets": {
 		"client": [
-			{ "file": "*.sh", "target": "~/" }
+			{ "file": "tuxerrante-k8s-prom/*.sh", "target": "~/" }
 		]
 	}
   },
