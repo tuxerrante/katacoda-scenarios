@@ -21,7 +21,7 @@
 		"client": [
 			{ "file": "install-k8s.sh", "target": "~/" }
 		]
-	},
+	}
   },
   "environment": {
     "uilayout": "terminal"
