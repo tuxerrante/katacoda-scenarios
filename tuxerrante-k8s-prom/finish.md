@@ -2,7 +2,7 @@
 ## Well done, my friend!
 
 If you want to buy me a pizza, here's my contacts:
-- [https://www.linkedin.com/in/affinitoalessandro/](affinitoalessandro)**  
+- [linkedin.com/in/affinitoalessandro/](https://www.linkedin.com/in/affinitoalessandro/)
 - [affinitoalessandro.it](https://affinitoalessandro.it)
 
 ---  
