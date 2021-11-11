@@ -45,7 +45,7 @@ cat <<EOF >/root/worker-init.sh
 EOF
 chmod +x /root/worker-init.sh
 
-ssh node01 bash <"/root/worker-init.sh" >/var/log/worker-init.log 2>&1
+ssh node01 bash <"/root/worker-init.sh" >/var/log/worker-init.log 2>&1 &
 
 echo "=====>  CALICO "
 curl -sLO https://docs.projectcalico.org/manifests/calico.yaml
@@ -62,5 +62,5 @@ cd prometheus-operator-0.52.0
 kubectl create -f bundle.yaml >/dev/null
 
 echo "Enjoy breaking stuff!"
-kubectl get nodes -o wide
+kubectl get nodes
 watch kubectl get pods -A 
