@@ -7,7 +7,9 @@ Environment:
 
 The script should finish showing pods starting, press CTRL+C when you want to start using it.
 
-For any issue in environment initialization, refer to this script:
-[https://github.com/tuxerrante/katacoda-scenarios/install-k8s.sh](https://github.com/tuxerrante/katacoda-scenarios/install-k8s.sh)
+For any issue in environment initialization, you can open an issue here:
+[https://github.com/tuxerrante/katacoda-scenarios](https://github.com/tuxerrante/katacoda-scenarios)
+
+
 
 
