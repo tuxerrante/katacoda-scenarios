@@ -5,9 +5,10 @@ curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.
 echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
 
 echo
-echo "====="
-apt-get update >/dev/null 2>&1 || true
+echo "===== Installing kubeadm.."
+apt-get update --allow-unauthenticated >/dev/null 2>&1 || true
 apt-get install -y --install-recommends kubeadm=1.22.3-00 >/dev/null 2>&1 || true
+
 kubeadm reset -f >/dev/null 2>&1
 rm -rf /etc/kubernetes/*
 
@@ -33,7 +34,7 @@ export CONTROLPLANE_IP=$(hostname -I |cut -f1 -d" ")
 echo
 cat <<EOF >/root/worker-init.sh
 apt-get install -y apt-transport-https ca-certificates curl >/dev/null;
-	apt-get update >/dev/null; 
+	apt-get update --allow-unauthenticated >/dev/null; 
 	curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg; 
 	echo 'deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main' | sudo tee /etc/apt/sources.list.d/kubernetes.list ; 
 	apt-get install -y kubelet=1.22.3-00 kubeadm=1.22.3-00; 
@@ -41,7 +42,7 @@ apt-get install -y apt-transport-https ca-certificates curl >/dev/null;
 EOF
 chmod +x /root/worker-init.sh
 
-ssh node01 bash <"/root/worker-init.sh" & #>/dev/null 2>&1 &
+ssh node01 bash <"/root/worker-init.sh" >/var/log/worker-init.log 2>&1 &
 
 echo "=====>  CALICO "
 curl -sLO https://docs.projectcalico.org/manifests/calico.yaml
