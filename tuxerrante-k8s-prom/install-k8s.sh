@@ -7,8 +7,9 @@ echo -e "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] http
 echo -e "\n====="
 apt-get update >/dev/null 2>&1
 apt-cache policy kubeadm |head
+
 apt-get install -y kubelet=1.22.3-00 kubeadm=1.22.3-00 kubectl=1.22.3-00 >/dev/null
-apt-mark hold kubelet kubeadm kubectl
+#apt-mark hold kubelet kubeadm kubectl
 
 echo -e "\n====="
 kubeadm init --pod-network-cidr=192.168.0.0/16
@@ -16,14 +17,19 @@ kubeadm init --pod-network-cidr=192.168.0.0/16
 echo -e "\n=====> Updating worker node "
 export TOKEN=$(kubeadm token list -o=jsonpath="{.token}")
 export TOKEN_HASH=$(openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | openssl dgst -sha256 -hex | sed 's/^.* //')
+export CONTROLPLANE_IP=$(hostname -I |cut -f1 -d" ")
 
-ssh node01 """
-	apt-get install -y apt-transport-https ca-certificates curl >/dev/null
-	apt-get update >/dev/null; \
-	curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg; \
-	echo -e 'deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main' | sudo tee /etc/apt/sources.list.d/kubernetes.list ; \
-	apt-get install -y kubelet=1.22.3-00 kubeadm=1.22.3-00; kubeadm join --token ${TOKEN} controlplane:6443 --discovery-token-ca-cert-hash sha256:$TOKEN_HASH
-	""" &
+cat <<EOF >node-init.sh
+	apt-get install -y apt-transport-https ca-certificates curl >/dev/null;
+	apt-get update >/dev/null; 
+	curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg; 
+	echo -e 'deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main' | sudo tee /etc/apt/sources.list.d/kubernetes.list ; 
+	apt-get install -y kubelet=1.22.3-00 kubeadm=1.22.3-00; 
+	kubeadm join --token ${TOKEN} ${CONTROLPLANE_IP}:6443 --discovery-token-ca-cert-hash sha256:${TOKEN_HASH}
+EOF
+chhmod +x node-init.sh
+ssh node01 'bash -s' < ./node-init.sh 
+
 
 mkdir -p $HOME/.kube
 cp /etc/kubernetes/admin.conf $HOME/.kube/config

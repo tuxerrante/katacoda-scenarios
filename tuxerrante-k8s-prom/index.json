@@ -2,7 +2,7 @@
   "title": "2 nodes K8S with Prometheus",
   "description": "A simple scenario",
   "difficulty": "Beginner",
-  "time": "60 minutes",
+  "time": "120 minutes",
   "details": {
     "steps": [
       {
