@@ -12,11 +12,16 @@
     ],
     "intro": {
       "text": "intro.md",
-      "code": "install-k8s.sh"
+      "code": "./install-k8s.sh"
     },
     "finish": {
       "text": "finish.md"
-    }
+    },
+	"assets": {
+		"client": [
+			{ "file": "install-k8s.sh", "target": "~/" }
+		]
+	},
   },
   "environment": {
     "uilayout": "terminal"
