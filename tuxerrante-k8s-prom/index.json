@@ -19,7 +19,7 @@
     },
 	"assets": {
 		"client": [
-			{ "file": "tuxerrante-k8s-prom/install-k8s.sh", "target": "~/" }
+			{ "file": "*.sh", "target": "~/" }
 		]
 	}
   },
