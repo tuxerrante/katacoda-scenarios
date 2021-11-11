@@ -11,7 +11,8 @@
       }
     ],
     "intro": {
-      "text": "intro.md"
+      "text": "intro.md",
+      "code": "start-installer.sh"
     },
     "finish": {
       "text": "finish.md"
