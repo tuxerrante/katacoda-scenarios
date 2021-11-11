@@ -33,8 +33,9 @@ export TOKEN=$(kubeadm token list -o=jsonpath="{.token}")
 export TOKEN_HASH=$(openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | openssl dgst -sha256 -hex | sed 's/^.* //')
 export CONTROLPLANE_IP=$(hostname -I |cut -f1 -d" ")
 
-echo
 cat <<EOF >/root/worker-init.sh
+	kubeadm reset -f >/dev/null 2>&1
+	rm -rf /etc/kubernetes/*
 	apt-get install -y apt-transport-https ca-certificates curl >/dev/null;
 	curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg; 
 	echo 'deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main' | sudo tee /etc/apt/sources.list.d/kubernetes.list ; 
