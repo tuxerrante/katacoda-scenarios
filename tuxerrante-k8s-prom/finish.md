@@ -1,8 +1,9 @@
 
-Well done, my friend!
+## Well done, my friend!
 
-**If you want to buy me a pizza, here's my contact:
-[https://www.linkedin.com/in/affinitoalessandro/](affinitoalessandro)**  
+If you want to buy me a pizza, here's my contacts:
+- [https://www.linkedin.com/in/affinitoalessandro/](affinitoalessandro)**  
+- [affinitoalessandro.it](https://affinitoalessandro.it)
 
 ---  
 
