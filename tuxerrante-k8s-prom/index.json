@@ -19,7 +19,7 @@
     },
 	"assets": {
 		"client": [
-			{ "file": "*.sh", "target": "/root" }
+			{ "file": "*", "target": "/root/" }
 		]
 	}
   },
