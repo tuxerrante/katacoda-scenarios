@@ -1,5 +1,5 @@
 
-## Start here
+## CLICK HERE
 `chmod +x ./install-k8s.sh && sh ./install-k8s.sh`{{execute}}  
 Press CTRL+C to start working after the pods are UP.  
 
