@@ -25,9 +25,10 @@ chown $(id -u):$(id -g) $HOME/.kube/config
 export KUBECONFIG=/etc/kubernetes/admin.conf
 
 launch.sh 
-kubeadm upgrade apply v1.22.3 --force
+# kubeadm upgrade apply v1.22.3 --force
 
 echo "=====> Updating worker node "
+echo "=== Logs will be in /var/log/worker-init.log"
 export TOKEN=$(kubeadm token list -o=jsonpath="{.token}")
 export TOKEN_HASH=$(openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | openssl dgst -sha256 -hex | sed 's/^.* //')
 export CONTROLPLANE_IP=$(hostname -I |cut -f1 -d" ")
@@ -43,7 +44,7 @@ cat <<EOF >/root/worker-init.sh
 EOF
 chmod +x /root/worker-init.sh
 
-ssh node01 bash <"/root/worker-init.sh" >/var/log/worker-init.log 2>&1 &
+ssh node01 bash <"/root/worker-init.sh" >/var/log/worker-init.log 2>&1
 
 echo "=====>  CALICO "
 curl -sLO https://docs.projectcalico.org/manifests/calico.yaml
