@@ -1,18 +1,23 @@
 #/bin/bash
 echo
-set +e
+#set +e
 curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
 echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
 echo
 echo "====="
 apt-get update >/dev/null 2>&1
-apt-get install -y --install-recommends kubeadm=1.22.3-00 >/dev/null 2>&1 || true #apt-cache policy kubeadm |head
+
+apt-get install -y --install-recommends kubeadm=1.22.3-00 >/dev/null ||true
+#apt-cache policy kubeadm |head
+
 kubeadm reset -f >/dev/null 2>&1
 rm -rf /etc/kubernetes/*
 echo
+
 echo "====="
 rm -rf /etc/kubernetes/manifests/* /var/lib/etcd/*
 kubeadm init --pod-network-cidr=192.168.0.0/16
+
 echo
 mkdir -p $HOME/.kube
 cp /etc/kubernetes/admin.conf $HOME/.kube/config
